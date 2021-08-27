@@ -14,14 +14,15 @@ import Profile from '../Profile'
 import { TabBar } from 'antd-mobile'
 
 // 导入组件自己的样式文件
-import './index.css'
+import './index.scss'
 
 // TabBar 数据
 const tabItems = [
   {
     title: '首页',
     icon: 'icon-ind',
-    path: '/home/index'
+    // path: '/home/index'
+    path: '/home' // 解决路由高亮
   },
   {
     title: '找房',
@@ -40,6 +41,17 @@ const tabItems = [
   }
 ]
 
+/**
+ * 问题：点击首页导航菜单，导航到 找房列表页面时， 找房菜单没有高亮
+ * 原因：原来我们实现该功能的时候，只考虑了点击以及第一次加载 Home 组件的时候。 
+ *       但是，我们没有考虑不重新加载Home组件时的路由切换，因为，这种情况下，我们的代码没有覆盖到
+ * 
+ * 解决：
+ *  在路由切换时，也执行，菜单高亮的逻辑代码
+ * 1.添加 componentDidUpdate 钩子函数
+ * 2.在钩子函数中判断路由地址是否切换
+ * 3.在路由地址切换时 ， 让菜单高亮
+ */
 
 export default class Home extends  React.Component {
   // 这是状态相当于vue中的data 状态都是变化的数据
@@ -49,6 +61,16 @@ export default class Home extends  React.Component {
     // fullScreen: false,
   }
 
+  componentDidUpdate(prevProps) {
+    console.log('componentDidUpdate')
+    if(prevProps.location.pathname !== this.props.location.pathname) {
+      // 此时，就说明路由发生切换了
+      this.setState({
+        selectedTab: this.props.location.pathname
+      })
+    }
+
+  }
   // 渲染 TabBar.Item 的方法
   renderTabBarItem() {
     return tabItems.map((item, index) => 
@@ -78,7 +100,7 @@ export default class Home extends  React.Component {
       <div  className="home">
         {/* 渲染子路由 */}
         <Route path="/home/news" component={ News }></Route>
-        <Route path="/home/index" component={ Index }></Route>
+        <Route exact path="/home" component={ Index }></Route>
         <Route path="/home/list" component={ HouseList }></Route>
         <Route path="/home/profile" component={ Profile }></Route>
 

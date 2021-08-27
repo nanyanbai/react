@@ -1,5 +1,7 @@
 * {
   box-sizing: border-box;
+  /* 去掉 轮播图 chrome 浏览器的错误警告 */
+  touch-action: pan-y;
 }
 
 html, body{
@@ -7,4 +9,8 @@ html, body{
   font-family: 'Microsoft YaHei';
   color: #333;
   background-color: #fff;
+}
+
+h2{
+  margin: 0;
 }
