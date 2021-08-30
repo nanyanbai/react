@@ -4,7 +4,7 @@ import React from 'react'
 // 导入 antd-mobile  轮播组件
 import { Carousel, Flex, Grid, WingBlank } from 'antd-mobile'
 
-import axios from 'axios'
+import { reqGetSwiper, reqGetGroups, reqGetNews } from '../../api'
 
 import './index.scss'
 
@@ -65,14 +65,16 @@ export  default class Index extends React.Component {
     // 租房小组
     groups: [],
     // 最新资讯
-    news: []
+    news: [],
+    // 当前城市名称
+    curCityName: '西安'
   }
   // 获取轮播图数据的方法
   async getSwipers () {
-    const res = await axios.get('http://localhost:8080/home/swiper')
+    const res = await reqGetSwiper()
     this.setState(() => {
       return {
-        swipers : res.data.body,
+        swipers : res.body,
         isSwiperLoaded: true
       }
     })
@@ -80,22 +82,26 @@ export  default class Index extends React.Component {
 
   // 获取租房小组数据的方法
   async getGroups() {
-    const res = await axios.get('http://localhost:8080/home/groups', { params: {area: 'AREA|88cff55c-aaa4-e2e0' }})
+    const params = {
+      area: 'AREA|88cff55c-aaa4-e2e0'
+    }
+    const res = await reqGetGroups( params )
     this.setState(() => {
       return {
-        groups:  res.data.body
+        groups:  res.body
       }
     })
   }
 
   // 获取最新资讯
   async getNews() {
-    const res = await axios.get(
-      'http://localhost:8080/home/news?area=AREA%7C88cff55c-aaa4-e2e0'
-    )
+    const params = {
+      area: 'AREA%7C88cff55c-aaa4-e2e0'
+    }
+    const res = await reqGetNews(params)
 
     this.setState({
-      news: res.data.body
+      news: res.body
     })
   }
 
@@ -174,6 +180,35 @@ export  default class Index extends React.Component {
               </Carousel>
             ): ''
           }
+
+          {/* 搜索框 */}
+          <Flex className="search-box">
+            {/* 左侧白色区域 */}
+            <Flex className="search">
+              {/* 位置 */}
+              <div
+                className="location"
+                onClick={() => this.props.history.push('/citylist')}
+              >
+                <span className="name">{this.state.curCityName}</span>
+                <i className="iconfont icon-arrow" />
+              </div>
+
+              {/* 搜索表单 */}
+              <div
+                className="form"
+                onClick={() => this.props.history.push('/search')}
+              >
+                <i className="iconfont icon-seach" />
+                <span className="text">请输入小区或地址</span>
+              </div>
+            </Flex>
+            {/* 右侧地图图标 */}
+            <i
+              className="iconfont icon-map"
+              onClick={() => this.props.history.push('/map')}
+            />
+          </Flex>
         </div>
           
         {/* 导航菜单 */}
