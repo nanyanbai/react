@@ -4,7 +4,7 @@ import React from 'react'
 // 导入 antd-mobile  轮播组件
 import { Carousel, Flex, Grid, WingBlank } from 'antd-mobile'
 
-import { reqGetSwiper, reqGetGroups, reqGetNews } from '../../api'
+import { reqGetSwiper, reqGetGroups, reqGetNews, reqGetCityInfo } from '../../api'
 
 import './index.scss'
 
@@ -55,7 +55,7 @@ const navs = [
  */
 
 
-export  default class Index extends React.Component {
+export default class Index extends React.Component {
   // 状态
   state = {
     // 轮播图
@@ -67,14 +67,14 @@ export  default class Index extends React.Component {
     // 最新资讯
     news: [],
     // 当前城市名称
-    curCityName: '西安'
+    curCityName: ''
   }
   // 获取轮播图数据的方法
-  async getSwipers () {
+  async getSwipers() {
     const res = await reqGetSwiper()
     this.setState(() => {
       return {
-        swipers : res.body,
+        swipers: res.body,
         isSwiperLoaded: true
       }
     })
@@ -85,10 +85,10 @@ export  default class Index extends React.Component {
     const params = {
       area: 'AREA|88cff55c-aaa4-e2e0'
     }
-    const res = await reqGetGroups( params )
+    const res = await reqGetGroups(params)
     this.setState(() => {
       return {
-        groups:  res.body
+        groups: res.body
       }
     })
   }
@@ -110,6 +110,18 @@ export  default class Index extends React.Component {
     this.getSwipers()
     this.getGroups()
     this.getNews()
+
+    // 通过 IP 定位获取到当前城市名称
+    const curCity = new window.BMapGL.LocalCity()
+    curCity.get(async res => {
+      const params = {
+        name: res.name
+      }
+      const result = await reqGetCityInfo(params)
+      this.setState({
+        curCityName: result.body.label
+      })
+    })
   }
 
   // 渲染轮播图的结构
@@ -135,10 +147,10 @@ export  default class Index extends React.Component {
 
   // 渲染导航菜单的结构
   renderNavs() {
-    return navs.map( item => 
-      <Flex.Item  key={ item.id }  onClick= {() => this.props.history.push(item.path)}>
-        <img src={ item.img }/>
-        <h2>{ item.title }</h2>
+    return navs.map(item =>
+      <Flex.Item key={item.id} onClick={() => this.props.history.push(item.path)}>
+        <img src={item.img} />
+        <h2>{item.title}</h2>
       </Flex.Item>
     )
   }
@@ -164,21 +176,21 @@ export  default class Index extends React.Component {
       </div>
     ))
   }
-  
+
   render() {
     return (
       <div className="index">
         {/* 轮播图 */}
         <div className="swiper">
-          { this.state.isSwiperLoaded ? (
-              <Carousel
-                autoplay={true}
-                infinite={true}
-              >
-                {/* 调用渲染好的轮播图结构方法 */}
-                { this.renderSwipers() }
-              </Carousel>
-            ): ''
+          {this.state.isSwiperLoaded ? (
+            <Carousel
+              autoplay={true}
+              infinite={true}
+            >
+              {/* 调用渲染好的轮播图结构方法 */}
+              { this.renderSwipers()}
+            </Carousel>
+          ) : ''
           }
 
           {/* 搜索框 */}
@@ -210,10 +222,10 @@ export  default class Index extends React.Component {
             />
           </Flex>
         </div>
-          
+
         {/* 导航菜单 */}
-        <Flex  className="nav">
-          { this.renderNavs() }
+        <Flex className="nav">
+          {this.renderNavs()}
         </Flex>
 
         {/* 租房小组 */}

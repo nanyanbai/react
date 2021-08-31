@@ -1,8 +1,22 @@
 .login-wrapper{
 
-  .code{
+  .verify-input{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    .am-list-item {
+      flex: 1;
+    }
+    .verify-btn{
+      font-size: 14px;
+      width: 100px;
+      border: none;
+      background-color: transparent;
+      color: #f40700;
+    }
+  }
+
+  .login-btn{
+    margin: 15px 0;
   }
 }
