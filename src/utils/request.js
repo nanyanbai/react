@@ -12,15 +12,15 @@ axios.interceptors.request.use(config => {
 
 
 axios.interceptors.response.use(response => {
-  const code  =  response.data.code
-  if(code === 400) {
+  const code = response.data.code
+  if (code === 400) {
     return Promise.reject('err')
   } else {
     return response.data
   }
-},err => {
+}, err => {
   alert(err.message)
-  return new Promise(() => {})
+  return new Promise(() => { })
 })
 
 

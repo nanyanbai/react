@@ -21,6 +21,11 @@ body,
 
 h2,
 H3,
-P {
+P,
+ul {
   margin: 0;
+}
+
+ul{
+  list-style: none;
 }

@@ -6,6 +6,8 @@ import { Carousel, Flex, Grid, WingBlank } from 'antd-mobile'
 
 import { reqGetSwiper, reqGetGroups, reqGetNews, reqGetCityInfo } from '../../api'
 
+import { getCurrentCity } from '../../utils'
+
 import './index.scss'
 
 // 导入导航菜单图片
@@ -106,21 +108,25 @@ export default class Index extends React.Component {
   }
 
   // 这个钩子函数是页面一进来就就行加载
-  componentDidMount() {
+  async componentDidMount() {
     this.getSwipers()
     this.getGroups()
     this.getNews()
 
     // 通过 IP 定位获取到当前城市名称
-    const curCity = new window.BMapGL.LocalCity()
-    curCity.get(async res => {
-      const params = {
-        name: res.name
-      }
-      const result = await reqGetCityInfo(params)
-      this.setState({
-        curCityName: result.body.label
-      })
+    // const curCity = new window.BMapGL.LocalCity()
+    // curCity.get(async res => {
+    //   const params = {
+    //     name: res.name
+    //   }
+    //   const result = await reqGetCityInfo(params)
+    //   this.setState({
+    //     curCityName: result.body.label
+    //   })
+    // })
+    const currCity = await getCurrentCity()
+    this.setState({
+      curCityName: currCity.label
     })
   }
 

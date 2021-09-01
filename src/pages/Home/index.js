@@ -6,7 +6,7 @@ import { Route } from 'react-router-dom'
 
 // 导入News组件
 import News from '../News'
-import Index from '../index'
+import Index from '../Index'
 import HouseList from '../HouseList'
 import Profile from '../Profile'
 
@@ -53,17 +53,17 @@ const tabItems = [
  * 3.在路由地址切换时 ， 让菜单高亮
  */
 
-export default class Home extends  React.Component {
+export default class Home extends React.Component {
   // 这是状态相当于vue中的data 状态都是变化的数据
   state = {
-    selectedTab:  this.props.location.pathname, // 默认选中的TabBar菜单项
+    selectedTab: this.props.location.pathname, // 默认选中的TabBar菜单项
     hidden: false, // 控制是否展示底部TabBar 的展示和隐藏
     // fullScreen: false,
   }
 
   componentDidUpdate(prevProps) {
     console.log('componentDidUpdate')
-    if(prevProps.location.pathname !== this.props.location.pathname) {
+    if (prevProps.location.pathname !== this.props.location.pathname) {
       // 此时，就说明路由发生切换了
       this.setState({
         selectedTab: this.props.location.pathname
@@ -73,7 +73,7 @@ export default class Home extends  React.Component {
   }
   // 渲染 TabBar.Item 的方法
   renderTabBarItem() {
-    return tabItems.map((item, index) => 
+    return tabItems.map((item, index) =>
       <TabBar.Item
         title={item.title}
         key={index}
@@ -83,38 +83,38 @@ export default class Home extends  React.Component {
         selectedIcon={
           <i className={`iconfont ${item.icon}`}></i>
         }
-        selected={this.state.selectedTab === item.path }
+        selected={this.state.selectedTab === item.path}
         onPress={() => {
           this.setState({
-            selectedTab: item.path 
+            selectedTab: item.path
           })
           // 路由切换
           this.props.history.push(item.path)
         }}
-      />  
+      />
     )
   }
 
   render() {
     return (
-      <div  className="home">
+      <div className="home">
         {/* 渲染子路由 */}
-        <Route path="/home/news" component={ News }></Route>
-        <Route exact path="/home" component={ Index }></Route>
-        <Route path="/home/list" component={ HouseList }></Route>
-        <Route path="/home/profile" component={ Profile }></Route>
+        <Route path="/home/news" component={News}></Route>
+        <Route exact path="/home" component={Index}></Route>
+        <Route path="/home/list" component={HouseList}></Route>
+        <Route path="/home/profile" component={Profile}></Route>
 
         {/* TabBar */}
-        
+
         <TabBar
           unselectedTintColor="#888"
           tintColor="#21b97a"
           barTintColor="white"
           hidden={this.state.hidden}
-          noRenderContent= { true }
+          noRenderContent={true}
         >
           {/* 直接调用渲染TabBar.Item的方法 */}
-          { this.renderTabBarItem() }
+          {this.renderTabBarItem()}
         </TabBar>
       </div>
     )
