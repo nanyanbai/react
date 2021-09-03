@@ -1,0 +1,33 @@
+.wrapper {
+  height: 100%;
+
+  .user-top{
+    min-height: 300px;
+    position: relative;
+    .bg{
+      width: 100%;
+    }
+  }
+
+
+  .menu {
+    .am-grid-item{
+      .am-grid-item-content{
+        .menuItem {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+          font-size: 13px;
+          color: #333;
+          i{
+            font-size: 20px;
+            margin-bottom: 10px;
+          }
+        }
+      }
+    }
+  }
+  
+}

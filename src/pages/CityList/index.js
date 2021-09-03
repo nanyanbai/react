@@ -1,8 +1,11 @@
 import React from "react";
 
-import { NavBar, Toast } from "antd-mobile";
+import { Toast } from "antd-mobile";
 
 import { List, AutoSizer } from "react-virtualized";
+
+// 导入封装好的NavHeader 组件
+import NavHeader from '../../components/NavHeader'
 
 import { reqGetCityList, reqGetHotCity } from "../../api";
 
@@ -179,14 +182,17 @@ export default class CityList extends React.Component {
   render() {
     return (
       <div className="city-list">
-        <NavBar
+        {/* <NavBar
           className="navbar"
           mode="light"
           icon={<i className="iconfont icon-back" />}
           onLeftClick={() => this.props.history.go(-1)}
         >
           城市选择
-        </NavBar>
+        </NavBar> */}
+        <NavHeader>
+          城市选择
+        </NavHeader>
         {/* 城市列表 */}
         <AutoSizer>
           {({ height, width }) => (
