@@ -23,7 +23,8 @@ h1,
 h2,
 H3,
 P,
-ul {
+ul,
+dd {
   margin: 0;
 }
 

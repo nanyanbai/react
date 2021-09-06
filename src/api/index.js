@@ -30,4 +30,8 @@ export const reqGetMap = (id) => ajax.get(`/area/map?id=${id}`)
 
 
 // 请求小区房源信息
-export const reqGetHouses = (id) => ajax.get(`/houses?cityid${id}`)
+export const reqGetHouses = (id) => ajax.get(`/houses?cityid=${id}`)
+
+
+// 请求房屋查询条件信息
+export const reqGetHousesCondition = (id) => ajax.get(`/houses/condition?id=${id}`)
