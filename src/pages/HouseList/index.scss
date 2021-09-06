@@ -1,0 +1,23 @@
+.houseList{
+  background-color: #fff;
+  .header{
+    height: 45px;
+    padding: 0 10px;
+    background-color: #f6f5f6;
+    .icon-back{
+      font-size: 16px;
+      color: #999;
+    }
+  }
+  .searchHeader{
+    position: relative;
+    top: 0;
+    padding: 0;
+    .search {
+      height: 30px;
+    }
+    .icon-map{
+      color: #00ae66;
+    }
+  }
+}

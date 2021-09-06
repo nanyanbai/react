@@ -1,24 +1,26 @@
-import React from "react";
+import React from "react"
 
 // 导入 antd-mobile  轮播组件
-import { Carousel, Flex, Grid, WingBlank } from "antd-mobile";
+import { Carousel, Flex, Grid, WingBlank } from "antd-mobile"
+
+// 导入顶部搜索组件
+import SearchHeader from '../../components/SearchHeader'
 
 import {
   reqGetSwiper,
   reqGetGroups,
   reqGetNews,
-  reqGetCityInfo,
-} from "../../api";
+} from "../../api"
 
-import { getCurrentCity } from "../../utils";
+import { getCurrentCity } from "../../utils"
 
 import "./index.scss";
 
 // 导入导航菜单图片
-import Nav1 from "../../assets/images/nav-1.png";
-import Nav2 from "../../assets/images/nav-2.png";
-import Nav3 from "../../assets/images/nav-3.png";
-import Nav4 from "../../assets/images/nav-4.png";
+import Nav1 from "../../assets/images/nav-1.png"
+import Nav2 from "../../assets/images/nav-2.png"
+import Nav3 from "../../assets/images/nav-3.png"
+import Nav4 from "../../assets/images/nav-4.png"
 
 // 导航菜单数据
 const navs = [
@@ -208,33 +210,7 @@ export default class Index extends React.Component {
           )}
 
           {/* 搜索框 */}
-          <Flex className="search-box">
-            {/* 左侧白色区域 */}
-            <Flex className="search">
-              {/* 位置 */}
-              <div
-                className="location"
-                onClick={() => this.props.history.push("/citylist")}
-              >
-                <span className="name">{this.state.curCityName}</span>
-                <i className="iconfont icon-arrow" />
-              </div>
-
-              {/* 搜索表单 */}
-              <div
-                className="form"
-                onClick={() => this.props.history.push("/search")}
-              >
-                <i className="iconfont icon-seach" />
-                <span className="text">请输入小区或地址</span>
-              </div>
-            </Flex>
-            {/* 右侧地图图标 */}
-            <i
-              className="iconfont icon-map"
-              onClick={() => this.props.history.push("/map")}
-            />
-          </Flex>
+          <SearchHeader cityName={this.state.curCityName} />
         </div>
 
         {/* 导航菜单 */}
