@@ -35,3 +35,6 @@ export const reqGetHouses = (id) => ajax.get(`/houses?cityid=${id}`)
 
 // 请求房屋查询条件信息
 export const reqGetHousesCondition = (id) => ajax.get(`/houses/condition?id=${id}`)
+
+// 请求房屋列表数据信息
+export const reqGetHouseList = (params) => ajax.get(`/houses`, { params })
