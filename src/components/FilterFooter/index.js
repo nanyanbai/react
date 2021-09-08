@@ -13,7 +13,7 @@ function FilterFooter({
   className
 }) {
   return (
-    <Flex className={['root', className || ''].join(' ')}>
+    <Flex className={['root-footer', className || ''].join(' ')}>
       {/* 取消按钮 */}
       <span
         className={['btn', 'cancel'].join(' ')}

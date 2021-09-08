@@ -48,7 +48,7 @@ export default class FilterMore extends Component {
       return (
         <span
           key={item.value}
-          className={['tag', isSelected ? 'tagActive' : ''].join(' ')}
+          className={['more-tag', isSelected ? 'tagActive' : ''].join(' ')}
           onClick={() => this.onTagClick(item.value)}
         >
           {item.label}
